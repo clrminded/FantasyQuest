@@ -5,12 +5,20 @@ import (
 	"log"
 )
 
+const itemURL = "https://api.boot.dev/v1/courses_rest_api/learn-http/items"
+
 func main() {
-	items, err := getItemData()
+	items, err := getItemData(itemURL)
+
 	if err != nil {
-		log.Fatalf("Error getting item data: %v", err)
+		log.Fatalf("error getting item data: %v", err)
 	}
 
-	data := string(items)
-	fmt.Println(data)
+	prettyData, err := prettify(string(items))
+
+	if err != nil {
+		log.Fatalf("error prettifying data: %v", err)
+	}
+
+	fmt.Println(prettyData)
 }
